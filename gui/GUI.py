@@ -8,7 +8,6 @@ class GUI:
         self.widgets = []
         self.hover_widget = None
 
-
     def addWidget(self, widget):
         self.widgets.append(widget)
 
@@ -18,8 +17,10 @@ class GUI:
     def draw(self):
         # Drawing a frame around the gui:
         window = self.main.window
-        pygame.draw.rect(window, (0xbb,0x99,0x77), (0, 600, 800, 200), 2)
-        window.fill((0xff,0xbb,0x77), (0, 600, 800, 200) )
+        pygame.draw.rect(
+            window, pygame.color.Color(0, 0, 0), (0, 599, 800, 201), 1
+        )
+        window.fill( pygame.color.Color(255, 255, 255), (0, 600, 800, 200))
 
         for widget in self.widgets:
             widget.draw(self.main.window)
@@ -35,12 +36,13 @@ class GUI:
                     hover_widget = widget
                     break
 
-            if (self.hover_widget != None and self.hover_widget != hover_widget):
-                self.hover_widget.onMouseOut(event)
-            if (self.hover_widget != hover_widget):
-                widget.onMouseOver(event)
-            self.hover_widget = hover_widget
+            if hover_widget != self.hover_widget:
+                if self.hover_widget != None:
+                    self.hover_widget.onMouseOut(event)
+                if hover_widget != None:
+                    hover_widget.onMouseOver(event)
 
+            self.hover_widget = hover_widget
 
             return False
 

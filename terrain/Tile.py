@@ -11,7 +11,7 @@ class Tile(Sprite):
         self.y = y
         self.location = Vec3(x, y, 0)
         self.objects = []
-        self.layer = Constants.GROUND_LAYER
+        self.layer = Constants.L1_GROUND_LAYER
 
     def __str__(self):
         return "Tile " + str(self.x) + " " + str(self.y)

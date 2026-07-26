@@ -1,10 +1,19 @@
+from typing import Optional
+
+
 class Widget:
     def __init__(self):
-        self.position = (0,0)
+        ## Position and size of widget:
+        self.position = (0, 0)
         self.size = (10, 10)
-        self.data = None
-        self.click_listener = None
-        self.hover_listener = None
+
+        self.data = None  # <-- Data associated with widget, could be any Python object or primitive data type.
+
+        ## Listeners for hover and click:
+        self.click_listener : Optional[object] = None
+        self.hover_listener : Optional[object] = None
+
+        self.tooltip_text = ""
 
     def setPosition(self, position):
         self.position = position
@@ -17,17 +26,19 @@ class Widget:
         y_inside = y > self.position[1] and y < self.position[1] + self.size[1]
         return x_inside and y_inside
 
-
     def onMouseOver(self, event):
-        if self.hover_listener == None: return False
+        if self.hover_listener == None:
+            return False
         return self.hover_listener.onMouseOver(event, self)
 
     def onMouseOut(self, event):
-        if self.hover_listener == None: return False
+        if self.hover_listener == None:
+            return False
         return self.hover_listener.onMouseOut(event, self)
 
     def onClick(self, event):
-        if self.click_listener == None: return False
+        if self.click_listener == None:
+            return False
         return self.click_listener.onClick(event, self)
 
     def draw(self, window):

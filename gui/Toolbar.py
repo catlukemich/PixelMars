@@ -13,23 +13,31 @@ class Toolbar:
         self.connector_button = Button(loadImage("assets/gui/connector.png"))
         self.connector_button.setPosition((10, 610))
         self.connector_button.click_listener = self
+        self.connector_button.setTooltipText("Connector to connect starship with other buildings.")
+
 
         self.green_dome_button = Button(loadImage("assets/gui/green_dome.png"))
         self.green_dome_button.setPosition((60, 610))
         self.green_dome_button.click_listener = self
+        self.green_dome_button.setTooltipText("Green dome to provide food and water for inhabitants.")
 
+        # TODO: Inhabitants quaters. 
+        # TODO: Power station.
         
         self.supply_station_button = Button(loadImage("assets/gui/supply_station.png"))
         self.supply_station_button.setPosition((110, 610))
         self.supply_station_button.click_listener = self
+        self.supply_station_button.setTooltipText("Supply station for materials which the colony is lacking of.")
 
         self.research_center_button = Button(loadImage("assets/gui/research_center.png"))
         self.research_center_button.setPosition((160, 610))
         self.research_center_button.click_listener = self
+        self.research_center_button.setTooltipText("Research center to discover new technologies.")
 
         self.clear_button = Button(loadImage("assets/gui/clear.png"))
         self.clear_button.setPosition((210, 610))
         self.clear_button.click_listener = self
+        self.clear_button.setTooltipText("Clear button for destructing existing buildings and infrastructure.")
 
     def show(self):
         self.main.gui.addWidget(self.connector_button)

@@ -1,6 +1,6 @@
 from modes.ClearMode import ClearMode
 from modes.Mode import Mode
-from modes.PlacementMode import PlacementMode
+from modes.ConstructionMode import PlacementMode
 
 class Modes:
     def __init__(self, main):

@@ -2,6 +2,7 @@ import pygame
 
 from VDebugger.vdebugger import vd # <-- Visual debugger
 
+from gui.Tooltip import Tooltip
 from gui.GUI import GUI
 from main.GameLoop import GameLoop
 from main.Input import Input
@@ -9,7 +10,7 @@ from main.Modes import Modes
 
 # Initially visible world elements:
 from constructibles.Starship import Starship
-from main.StarshipLandingProcess import StarshipLandingState
+from main.Processes.StarshipLandingProcess import StarshipLandingProcess
 from terrain.Terrain import Terrain
 
 # Game logical elements:
@@ -38,24 +39,26 @@ class Game():
         self.input = Input()
         self.view = View()
         self.gui = GUI(self)
-        self.modes = Modes(self)
         self.terrain = Terrain(self)
         self.terrain.generate()
         self.scroller = Scroller(self)
+        self.modes = Modes(self)
 
         toolbar = Toolbar(self)
         toolbar.show()
+
+        self.tooltip = Tooltip.getInstance()
         
-        self.states = []  # <-- List of GameState instances.
+        self.processes = []  # <-- List of GameState instances.
         self.starship = Starship(self.terrain)
 
-        landing_state = StarshipLandingState(self, self.starship)
+        landing_state = StarshipLandingProcess(self, self.starship)
 
         terrain = self.terrain
         tile = terrain.getTile(9, 9)
         tile.addObject(self.starship)
         
-        self.addState(landing_state)
+        self.addProcess(landing_state)
 
 
     def loop(self):
@@ -63,14 +66,14 @@ class Game():
         game_loop.loop(self)
 
 
-    ## GameState handling ##
-    def addState(self, gamestate):
-        self.states.append(gamestate)
-        gamestate.init() ## Initialize state when it is added.
+    ## GameProcess handling ##
+    def addProcess(self, gameprocess):
+        self.processes.append(gameprocess)
+        gameprocess.start() ## Initialize state when it is added.
 
-    def removeState(self, gamestate):
-        self.states.remove(gamestate)
-        gamestate.final() ## Finalize state when it is removed.
+    def removeProcess(self, gameprocess):
+        self.processes.remove(gameprocess)
+        gameprocess.end() ## Finalize state when it is removed.
 
     def setMode(self, new_mode):
         self.modes.current_mode.disable()
