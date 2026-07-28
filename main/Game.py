@@ -9,12 +9,14 @@ from main.Input import Input
 from main.Modes import Modes
 
 # Initially visible world elements:
-from constructibles.Starship import Starship
-from main.Processes.StarshipLandingProcess import StarshipLandingProcess
+from flyers.Starship import Starship
+from main.Player import Player
+from main.processes.StarshipLandingProcess import StarshipLandingProcess
 from terrain.Terrain import Terrain
 
 # Game logical elements:
 from gui.Toolbar import Toolbar
+from utils.Assets import loadSound
 from view.Scroller import Scroller
 from view.View import View
 
@@ -44,12 +46,15 @@ class Game():
         self.scroller = Scroller(self)
         self.modes = Modes(self)
 
-        toolbar = Toolbar(self)
-        toolbar.show()
+        self.toolbar = Toolbar(self)
+        self.toolbar.show()
 
         self.tooltip = Tooltip.getInstance()
         
         self.processes = []  # <-- List of GameState instances.
+
+        self.player = Player()
+
         self.starship = Starship(self.terrain)
 
         landing_state = StarshipLandingProcess(self, self.starship)
@@ -59,6 +64,7 @@ class Game():
         tile.addObject(self.starship)
         
         self.addProcess(landing_state)
+      
 
 
     def loop(self):

@@ -33,7 +33,7 @@ class Tooltip(Widget):
         it must be set visible with setVisible(True) method call.
         """
         self.text = text
-        font = pygame.font.Font("assets/fonts/LEMONMILK-Light.otf", 10)
+        font = pygame.font.Font("assets/fonts/ArchivoNarrow-Regular.ttf", 14)
         w, h = font.size(text)
         w += 4  # <-- Add horizontal margins around the tooltip..
         h += 4  # <-- .. and vertical.
@@ -61,7 +61,6 @@ class Tooltip(Widget):
         if not self.visible:
             return
         window.blit(self.text_surface, self.position)
-        # vd("position", self.position)
 
     def containsMouse(self, x, y):
         """

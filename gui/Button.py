@@ -43,3 +43,5 @@ class Button(Widget):
 
     def setTooltipText(self, text):
         self.tooltip_text = text
+
+    

@@ -1,3 +1,4 @@
+from flyers.Starship import Starship
 from main import Constants
 from utils.Assets import loadImage
 from .Constructible import Constructible
@@ -22,9 +23,9 @@ class Connector(Constructible):
             self.image = loadImage(image_path)
 
     def getImagePath(self, tile_north, tile_south, tile_west, tile_east):
-        north_string = "n" if tile_north != None and tile_north.containsObject(Constructible) else ""
-        south_string = "s" if tile_south != None and tile_south.containsObject(Constructible) else ""
-        west_string = "w" if tile_west != None and tile_west.containsObject(Constructible) else ""
-        east_string = "e" if tile_east != None and tile_east.containsObject(Constructible) else ""
+        north_string = "n" if tile_north != None and tile_north.containsObject(Constructible) or tile_north.containsObject(Starship) else ""
+        south_string = "s" if tile_south != None and tile_south.containsObject(Constructible) or tile_south.containsObject(Starship) else ""
+        west_string = "w" if tile_west != None and tile_west.containsObject(Constructible) or tile_west.containsObject(Starship) else ""
+        east_string = "e" if tile_east != None and tile_east.containsObject(Constructible) or tile_east.containsObject(Starship) else ""
         image_path = "assets/connectors/connector_" + north_string + south_string + west_string + east_string + ".png"
         return image_path

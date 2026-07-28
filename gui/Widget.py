@@ -10,16 +10,22 @@ class Widget:
         self.data = None  # <-- Data associated with widget, could be any Python object or primitive data type.
 
         ## Listeners for hover and click:
-        self.click_listener : Optional[object] = None
-        self.hover_listener : Optional[object] = None
+        self.click_listener: Optional[object] = None
+        self.hover_listener: Optional[object] = None
 
         self.tooltip_text = ""
 
-    def setPosition(self, position):
+    def setPosition(self, position: tuple[int, int]):
         self.position = position
 
     def getPosition(self):
         return self.position
+
+    def getSize(self):
+        return self.size
+
+    def setSize(self, size: tuple[int, int]):
+        self.size = size
 
     def containsMouse(self, x, y):
         x_inside = x > self.position[0] and x < self.position[0] + self.size[0]

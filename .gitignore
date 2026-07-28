@@ -1,4 +1,9 @@
+workdir/**
+working/**
+
 working/
+workdir/
+
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
