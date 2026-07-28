@@ -1,4 +1,5 @@
 from typing import Optional
+from VDebugger.vdebugger import vd
 from constructibles.PlaceableDescriber import PlaceableDescriber
 from modes.ConnectorsRealigner import ConnectorsRealigner
 from modes.WorldInteractionMode import WorldInteractionMode
@@ -18,6 +19,10 @@ class PlacementMode(WorldInteractionMode):
     def tileClicked(self, tile):
         if self.describer is None:
             return  # No describer set, cannot perform construction.
-        if self.describer.canPlace(tile):
-            self.describer.placeNew(tile)
+
+        can_place = self.describer.canPlace(tile)
+        if can_place:
+            constructible = self.describer.placeNew(tile)
+            constructible.onPlace(self.main)
             self.tile_realigner.realignConnectors(tile)
+            

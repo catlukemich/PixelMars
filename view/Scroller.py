@@ -34,7 +34,7 @@ class Scroller:
             dy = event.rel[1] 
 
             center = self.main.view.getCenter()
-            center.x -= dx / 100
-            center.y -= dy / 50
+            center.x -= dx / 48
+            center.y -= dy / 24
             self.main.view.setCenter(center)
         ''' Scroller event handling end '''

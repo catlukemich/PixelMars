@@ -1,6 +1,5 @@
+import abc
 import pygame
-
-
 from VDebugger.vdebugger import vd
 from utils.Vectors import Vec3
 
@@ -16,7 +15,7 @@ class Sprite():
     def setLocation(self, location):
         self.location = location
 
-    def getLocation(self):
+    def getLocation(self) -> Vec3:
         return self.location
 
     def setImage(self, image):
@@ -34,7 +33,9 @@ class Sprite():
     def setVisible(self, visible):
         self.visible = visible
 
-    def draw(self, view, window):
+    def draw(self, view, window: pygame.surface.Surface):
+        from flyers.SupplyShip import SupplyShip
+        from constructibles.SupplyStation import SupplyStation
         if self.visible:
             position = view.project(self.location)
             rect = self.image.get_rect()

@@ -1,3 +1,5 @@
+from flyers.Starship import Starship
+from utils.MusicPlayer import MusicPlayer
 import view
 from utils.Assets import loadImage, loadSound, loadAnimation
 from view.AnimatedSprite import AnimatedSprite
@@ -10,7 +12,7 @@ class StarshipLandingProcess(GameProcess):
 
     def __init__(self, main, starship):
         self.main = main
-        self.starship = starship
+        self.starship : Starship = starship
         self.landing_speed = 0.6
 
     def start(self):
@@ -27,17 +29,22 @@ class StarshipLandingProcess(GameProcess):
         self.starship_shadow.setLayer(Constants.L2_OVERLAYS_LAYER)
         view.addSprite(self.starship_shadow)
 
-        landing_sound = loadSound("assets/rocket.mp3")
+        landing_sound = loadSound("assets/sounds/rocket.wav")
         landing_sound.play()
 
 
     def update(self, clock):
         ''' Update - Make the starship land'''
-        starship_loc = self.starship.getLocation()
-        self.landing_speed -= 0.005
+        starship_loc : Vec3 = self.starship.getLocation()
+        self.landing_speed -= 0.00465
 
-        if self.landing_speed < 0.02:
-            self.landing_speed = 0.02
+        if self.landing_speed < 0.011:
+            self.landing_speed = 0.011
+            self.starship.setImage(loadImage("assets/starship_thrusters2.png"))
+
+        if starship_loc.z < 0.32:
+            self.starship.setImage(loadImage("assets/starship.png"))
+            self.landing_speed = 0.00295
 
         starship_loc.z -= self.landing_speed
 
@@ -74,3 +81,5 @@ class StarshipLandingProcess(GameProcess):
 
         # Enable the scrolling of view:
         self.main.scroller.enable()
+
+        MusicPlayer.getInstance().start()

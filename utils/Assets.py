@@ -10,7 +10,7 @@ def loadImage(path):
         return images[path]
     else:
         try:
-            images[path] = pygame.image.load(path)
+            images[path] = pygame.image.load(path).convert_alpha()
             return images[path]
         except FileNotFoundError:
             print("Cant load image: " + path)
@@ -38,7 +38,7 @@ def loadAnimation(dir_path):
 
 sounds = {}
 
-def loadSound(path):
+def loadSound(path) -> pygame.mixer.Sound:
     if path in sounds:
         return sounds[path]
     else:

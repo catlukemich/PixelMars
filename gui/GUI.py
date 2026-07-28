@@ -15,23 +15,17 @@ class GUI:
         self.widgets.remove(widget)
 
     def draw(self):
-        # Drawing a frame around the gui:
-        window = self.main.window
-        pygame.draw.rect(
-            window, pygame.color.Color(0, 0, 0), (0, 599, 800, 201), 1
-        )
-        window.fill( pygame.color.Color(255, 255, 255), (0, 600, 800, 200))
-
         for widget in self.widgets:
             widget.draw(self.main.window)
 
     def onEvent(self, event):
+        reversed_widgets = reversed(self.widgets)
         if event.type == pygame.MOUSEMOTION:
             x = event.pos[0]
             y = event.pos[1]
 
             hover_widget = None
-            for widget in self.widgets:
+            for widget in reversed_widgets:
                 if widget.containsMouse(x, y):
                     hover_widget = widget
                     break

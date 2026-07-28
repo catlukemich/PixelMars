@@ -15,4 +15,7 @@ class ConnectorsRealigner():
         for surrounding_tile in surrounding:
             if surrounding_tile.containsObject(Connector):
                 connector = surrounding_tile.getObject(Connector)
-                connector.realignSelf(surrounding_tile)
+                try:
+                    connector.realignSelf(surrounding_tile)
+                except:
+                    pass # <-- The tile is out of map.

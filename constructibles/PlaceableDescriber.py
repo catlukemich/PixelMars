@@ -3,6 +3,7 @@
 import abc
 
 from constructibles.Constructible import Constructible
+from flyers.Starship import Starship
 from utils.Vectors import Vec3
 
 class PlaceableDescriber:
@@ -17,10 +18,11 @@ class PlaceableDescriber:
         pass
 
     def placeNew(self, tile):
-        placeable = self.createConstructible()
-        placeable.setLocation(Vec3(tile.x, tile.y, 0))
-        self.main.view.addSprite(placeable)
-        tile.addObject(placeable)
+        constructible = self.createConstructible()
+        constructible.setLocation(Vec3(tile.x, tile.y, 0))
+        self.main.view.addSprite(constructible)
+        tile.addObject(constructible)
+        return constructible
 
     @abc.abstractmethod
     def createConstructible(self) -> Constructible:
@@ -33,7 +35,7 @@ class PlaceableDescriber:
         terrain = self.main.terrain
         surrounding_perp = terrain.getSurroundingTilesPerpendicular(tile)
         for tile in surrounding_perp:
-            if tile.containsObject(Constructible):
+            if tile.containsObject(Constructible) or tile.containsObject(Starship):
                 return True
         return False
 
