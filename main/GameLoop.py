@@ -38,6 +38,7 @@ class GameLoop:
                     old_height = new_height
 
             game.view.update(clock)
+            game.communicator.update(clock)
             game.advisor.update(clock)
             game.gui.update(clock)
 

@@ -10,7 +10,7 @@ class Player:
 
         # fmt: off
         # Five types of resources: food, power, coal, steel, population player can have. Each resource has a quantity associated with it.
-        self.food       = 10
+        self.food       = 100
         self.power      = 10
         self.coal       = 10
         self.steel      = 10
@@ -30,20 +30,28 @@ class Player:
         self.setFood(self.food + food)
 
     def subtractFood(self, food):
-        self.setFood(self.food - food)
+        if self.food >= food:
+            self.setFood(self.food - food)
+            return True
+        else:
+            return False
 
-    ###### 2.POWER: ###### 
+    ###### 2.ENERGY: ###### 
     def setPower(self, power):
         self.power = power
         self.main.toolbar.energy_indicator_label.setText(
-            "power: " + str(self.power) + " t"
+            "energy: " + str(self.power) + " mWh"
         )
 
-    def addPower(self, power):
+    def addEnergy(self, power):
         self.setPower(self.power + power)
 
-    def subtractPower(self, power):
-        self.setPower(self.power - power)
+    def subtractEnergy(self, power):
+        if self.power >= power:
+            self.setPower(self.power - power)
+            return True
+        else:
+            return False
 
     ###### 3.COAL: ######
     def setCoal(self, coal):
@@ -55,9 +63,16 @@ class Player:
         self.setCoal(self.coal + coal)
 
     def subtractCoal(self, coal):
-        self.setCoal(self.coal - coal)
+        if self.coal >= coal:
+            self.setCoal(self.coal - coal)
+            return True
+        else:
+            return False
 
     ###### 4.STEEL: ######
+    def getSteel(self):
+        return self.steel
+
     def setSteel(self, steel):
         self.steel = steel
         # assume toolbar has a steel_indicator_label
@@ -76,7 +91,7 @@ class Player:
         self.population = population
         # assume toolbar has a population_indicator_label
         self.main.toolbar.population_indicator_label.setText(
-            "population: " + str(self.population)
+            "pop: " + str(self.population)
         )
 
     def addPopulation(self, population):

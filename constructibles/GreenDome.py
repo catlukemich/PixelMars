@@ -6,6 +6,8 @@ from .Constructible import Constructible
 
 
 class GreenDome(Constructible, Updateable):
+    """ Green domes provide food for colonists, they don't consume any energy. """
+
     def __init__(self, terrain):
         Constructible.__init__(self, terrain, loadImage("assets/green_dome.png"))
         self.harvest_time = 0 # <-- Time counter to next harvest.
@@ -16,4 +18,5 @@ class GreenDome(Constructible, Updateable):
             self.harvest_time = 0
             if self.main:
                 self.main.player.addFood(1)
-        
+
+    

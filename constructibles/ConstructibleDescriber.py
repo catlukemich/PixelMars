@@ -41,6 +41,10 @@ class ConstructibleDescriber:
         return False
 
 
+    @abc.abstractmethod
+    def getCost(self):
+        """ Get cost of this constructible in tons of steel"""
+        return 0
 
 
 

@@ -10,3 +10,6 @@ class GreenDomeDescriber(ConstructibleDescriber):
 
     def createConstructible(self):
         return GreenDome(self.main.terrain)
+
+    def getCost(self):
+        return 5

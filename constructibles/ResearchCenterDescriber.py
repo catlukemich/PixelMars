@@ -10,3 +10,6 @@ class ResearchCenterDescriber(ConstructibleDescriber):
 
     def createConstructible(self):
         return ResearchCenter(self.main.terrain)
+
+    def getCost(self):
+        return 15

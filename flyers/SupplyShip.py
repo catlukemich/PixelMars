@@ -101,7 +101,7 @@ class SupplyShip(Rot60Flyer):
                 if self.waiting_time > 3000:
                     self.waiting_time = 0
                     self.state = STARTING
-                    self.main.player.addFood(10)
+                    self.provideRandomResources()
 
             if self.state == STARTING:
                 dirvector = Vec3(0,0,1)
@@ -134,3 +134,15 @@ class SupplyShip(Rot60Flyer):
             self.location = self.location + dirvector * clock.get_time() / 1000 * speed
 
         return super().update(clock)
+
+
+    def provideRandomResources(self):
+        random_res_type = random.randint(1,3)
+        if random_res_type == 1:
+            self.main.player.addFood(15)
+        if random_res_type == 2: 
+            self.main.player.addEnergy(20)
+        if random_res_type == 3:
+            self.main.player.addSteel(2)
+        if random_res_type == 4:
+            self.main.player.addCoal(4)

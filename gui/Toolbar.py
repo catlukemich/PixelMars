@@ -1,6 +1,8 @@
 from constructibles.CoalMinerDescriber import CoalMinerDescriber
+from constructibles.CoalProcessorDescriber import CoalProcessorDescriber
 from constructibles.GreenDomeDescriber import GreenDomeDescriber
 from constructibles.PopulationQuartersDescriber import PopulationQuartersDescriber
+from constructibles.PowerStationDescriber import PowerStationDescriber
 from constructibles.ResearchCenterDescriber import ResearchCenterDescriber
 from constructibles.SupplyStationDescriber import SupplyStationDescriber
 from gui.Icon import Icon
@@ -48,22 +50,29 @@ class Toolbar:
         self.coal_miner_button.setPosition((190, 610))
         self.coal_miner_button.click_listener = self
         self.coal_miner_button.setTooltipText("Supply station for materials which the colony is lacking of.")
+
+        self.coal_processor_button = Button(loadImage("assets/gui/coal_processor.png"))
+        self.coal_processor_button.setPosition((250, 610))
+        self.coal_processor_button.click_listener = self
+        self.coal_processor_button.setTooltipText("Coal processor - processes coal into steel.")
         
-
-        # TODO: Power station.
-
+        self.power_station_button = Button(loadImage("assets/gui/power_station.png"))
+        self.power_station_button.setPosition((310, 610))
+        self.power_station_button.click_listener = self
+        self.power_station_button.setTooltipText("Power station for energy generation. Uses solar energy.")
+        
         self.supply_station_button = Button(loadImage("assets/gui/supply_station.png"))
-        self.supply_station_button.setPosition((250, 610))
+        self.supply_station_button.setPosition((370, 610))
         self.supply_station_button.click_listener = self
         self.supply_station_button.setTooltipText("Supply station for materials which the colony is lacking of.")
 
         self.research_center_button = Button(loadImage("assets/gui/research_center.png"))
-        self.research_center_button.setPosition((310, 610))
+        self.research_center_button.setPosition((430, 610))
         self.research_center_button.click_listener = self
         self.research_center_button.setTooltipText("Research center to discover new technologies.")
 
         self.clear_button = Button(loadImage("assets/gui/clear.png"))
-        self.clear_button.setPosition((370, 610))
+        self.clear_button.setPosition((590, 610))
         self.clear_button.click_listener = self
         self.clear_button.setTooltipText("Clear button for destructing existing buildings and infrastructure.")
 
@@ -77,28 +86,28 @@ class Toolbar:
 
         self.food_indicator_icon = Icon(loadImage("assets/gui/food_icon.png"))
         self.food_indicator_icon.setPosition((left_offset, 740 + top_offset))
-        self.food_indicator_label = Label("food: 10 t", 14)
-        self.food_indicator_label.setPosition((left_offset + 50, 745 + top_offset))
+        self.food_indicator_label = Label("food: 100 t", 12)
+        self.food_indicator_label.setPosition((left_offset + 40, 748 + top_offset))
 
         self.steel_indicator_icon = Icon(loadImage("assets/gui/steel_icon.png"))
         self.steel_indicator_icon.setPosition((left_offset + left_step, 740 + top_offset))
-        self.steel_indicator_label = Label("steel: 10 t", 14)
-        self.steel_indicator_label.setPosition((left_offset + left_step + 50, 745 + top_offset))
+        self.steel_indicator_label = Label("steel: 10 t", 12)
+        self.steel_indicator_label.setPosition((left_offset + left_step + 40, 748 + top_offset))
 
         self.energy_indicator_icon = Icon(loadImage("assets/gui/energy_icon.png"))
         self.energy_indicator_icon.setPosition((left_offset + left_step * 2, 740 + top_offset))
-        self.energy_indicator_label = Label("power: 10 mW", 14)
-        self.energy_indicator_label.setPosition((left_offset + left_step * 2 + 45, 745 + top_offset))
+        self.energy_indicator_label = Label("power: 10 mWh", 12)
+        self.energy_indicator_label.setPosition((left_offset + left_step * 2 + 40, 748 + top_offset))
 
         self.coal_indicator_icon = Icon(loadImage("assets/gui/coal_icon.png"))
-        self.coal_indicator_icon.setPosition((left_offset + left_step * 3, 740 + top_offset))
-        self.coal_indicator_label = Label("coal: 10 t", 14)
-        self.coal_indicator_label.setPosition((left_offset + left_step * 3 + 50, 745 + top_offset))
+        self.coal_indicator_icon.setPosition((left_offset + left_step * 3 + 30, 740 + top_offset))
+        self.coal_indicator_label = Label("coal: 10 t", 12)
+        self.coal_indicator_label.setPosition((left_offset + left_step * 3 + 40  + 30, 748 + top_offset))
 
         self.population_indicator_icon = Icon(loadImage("assets/gui/population_icon.png"))
-        self.population_indicator_icon.setPosition((left_offset + left_step * 4, 740 + top_offset))
-        self.population_indicator_label = Label("pop: 10", 14)
-        self.population_indicator_label.setPosition((left_offset + left_step * 4 + 50, 745 + top_offset))
+        self.population_indicator_icon.setPosition((left_offset + left_step * 4 + 30,  740 + top_offset))
+        self.population_indicator_label = Label("pop: 100", 12)
+        self.population_indicator_label.setPosition((left_offset + left_step * 4 + 40 + 30, 748 + top_offset))
 
     def show(self):
         self.main.gui.addWidget(self.panel_upper)
@@ -106,8 +115,10 @@ class Toolbar:
         self.main.gui.addWidget(self.green_dome_button)
         self.main.gui.addWidget(self.population_quarters_button)
         self.main.gui.addWidget(self.coal_miner_button)
+        self.main.gui.addWidget(self.coal_processor_button)
+        self.main.gui.addWidget(self.power_station_button)
         self.main.gui.addWidget(self.supply_station_button)
-        self.main.gui.addWidget(self.research_center_button)
+        # self.main.gui.addWidget(self.research_center_button)
         self.main.gui.addWidget(self.clear_button)
 
         self.main.gui.addWidget(self.panel_lower)
@@ -141,6 +152,11 @@ class Toolbar:
                 placement_mode.setPlaceableDescriber(ResearchCenterDescriber(self.main))
             elif widget == self.coal_miner_button:
                 placement_mode.setPlaceableDescriber(CoalMinerDescriber(self.main))
+            elif widget == self.power_station_button:
+                placement_mode.setPlaceableDescriber(PowerStationDescriber(self.main))
+            elif widget == self.coal_processor_button:
+                placement_mode.setPlaceableDescriber(CoalProcessorDescriber(self.main))
+
 
             self.main.setMode(placement_mode)
 

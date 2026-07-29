@@ -2,7 +2,7 @@ import random
 
 from terrain.Tile import Tile
 
-MIN_COAL_DEPOSIT = 1
+MIN_COAL_DEPOSIT = 100
 MAX_COAL_AMOUNT_DEVIATION = 20
 
 

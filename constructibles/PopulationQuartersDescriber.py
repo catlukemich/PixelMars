@@ -11,3 +11,6 @@ class PopulationQuartersDescriber(ConstructibleDescriber):
 
     def createConstructible(self):
         return PopulationQuarters(self.main.terrain)
+
+    def getCost(self):
+        return 10

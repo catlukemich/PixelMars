@@ -62,17 +62,18 @@ class MainMenu():
         self.gui.removeWidget(self.credits_button)
 
     def createCredits(self):
-        self.credits_panel = Panel(700, 700)
-        self.credits_panel.setPosition((50,50))
+        self.credits_panel = Panel(780, 700)
+        self.credits_panel.setPosition((10,50))
 
         self.credits_header = Label("Credits", 32)
-        self.credits_header.setPosition((70, 70))
+        self.credits_header.setPosition((20, 20))
 
         with open("credits.txt") as f:
             contents = f.read()
 
-        self.credits_text = Label(contents, 12)
-        self.credits_text.setPosition((70,140))
+        credits_font = pygame.font.Font("assets/fonts/ArchivoNarrow-Regular.ttf", 14)
+        self.credits_text = Label(contents, 14, credits_font)
+        self.credits_text.setPosition((20,80))
 
 
     def onClick(self, event, widget):

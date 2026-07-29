@@ -26,9 +26,9 @@ class Advisor:
         self.advisor_face = AnimatedIcon(
             loadImage("assets/gui/woman_atlas.png"), 4, 320 // 4, 80
         )
-        self.advisor_face.setPosition((10, 490))
+        self.advisor_face.setPosition((10, 486))
 
-        self.message = Label("", 14)
+        self.message = Label("", 13)
         self.message.setPosition((100, 500))
 
         # Flag indicating if the crosshair should be shown - used internally 

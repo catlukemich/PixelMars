@@ -4,6 +4,7 @@ from VDebugger.vdebugger import vd # <-- Visual debugger
 
 from gui.Advisor import Advisor
 from gui.AnimatedIcon import AnimatedIcon
+from gui.Communicator import Communicator
 from gui.Tooltip import Tooltip
 from gui.GUI import GUI
 from main.GameLoop import GameLoop
@@ -51,6 +52,7 @@ class Game():
         self.modes = Modes(self)
 
         self.advisor = Advisor(self)
+        self.communicator = Communicator(self)
         self.toolbar = Toolbar(self)
         self.toolbar.show()
         

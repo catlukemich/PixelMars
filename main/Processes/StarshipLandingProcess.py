@@ -87,25 +87,31 @@ class StarshipLandingProcess(GameProcess):
         terrain = self.main.terrain
         tile = terrain.getTile(self.landing_tile[0], self.landing_tile[1])
         tile.addObject(self.starship)
+        self.starship.onLanding(self.main)
 
         # Enable the scrolling of view:
         self.main.scroller.enable()
 
         MusicPlayer.getInstance().start()
 
-        # advisor = self.main.advisor
-        # advisor.communicate(
-        #     "Hello Commander, welcome to Mars, this is our first colony, which you are designed to supervise.",
-        #     lambda: advisor.communicate(
-        #         "Start building green domes to establish a food providing base for colonists. \nDue to our technological advances - a single green dome can provide food for one segment of quarters",
-        #         lambda: advisor.communicate(
-        #             "Then for the sake of unexpected needs, build a supply station. \nA supply ship will arrive every now and then to support your base with additional resouoces.",
-        #             lambda: advisor.communicate(
-        #                 "When need arises - build a coal miner and a power plant, since the spaceship built-in power generators \ncan't supply enough power for growing colony",
-        #                 lambda: advisor.communicate(
-        #                     "And remember! Every construction costs you steel, so keep in mind the costs! \nIf something in the way I'll call you back later. Anna."
-        #                 ),
-        #             ),
-        #         ),
-        #     ),
-        # )
+        advisor = self.main.advisor
+        advisor.communicate(
+            "Hello Commander, welcome to Mars, this is our first colony, which you are designated to supervise.",
+            lambda: advisor.communicate(
+                "Start building green domes to establish a food providing base for colonists. " \
+                "\nDue to our technological advances - a single green dome can provide food for \n" \
+                "one segment of quarters - that is 100 inhabitants",
+                lambda: advisor.communicate(
+                    "Then for the sake of unexpected needs, build a supply station. " \
+                    "\nA supply ship will arrive every now and then to support your base with additional resouoces.",
+                    lambda: advisor.communicate(
+                        "When need arises - build a coal miner and a power plant, since the spaceship built-in power generators " \
+                        "\ncan't supply enough power for growing colony it's necessary to provide additional energy supply.",
+                        lambda: advisor.communicate(
+                            "And remember! Every construction costs you steel, so keep in mind the costs! " \
+                            "\nIf something in the way or trouble arises I'll call you. I'm your personal advisor, Anna."
+                        ),
+                    ),
+                ),
+            ),
+        )

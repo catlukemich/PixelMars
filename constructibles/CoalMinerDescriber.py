@@ -13,9 +13,16 @@ class CoalMinerDescriber(ConstructibleDescriber):
         return CoalMiner(self.main.terrain)
 
     def canPlace(self, tile):
+        can_place = super().canPlace(tile)
+
         tiles = self.main.terrain.getSurroundingTilesPerpendicular(tile)
         for tile in tiles:
             if isinstance(tile, CoalTile):
-                return True
+                if can_place: 
+                    return True
         else: 
             return False
+
+
+    def getCost(self) -> int:
+        return 5

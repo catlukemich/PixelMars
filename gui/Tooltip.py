@@ -33,7 +33,7 @@ class Tooltip(Widget):
         it must be set visible with setVisible(True) method call.
         """
         self.text = text
-        font = pygame.font.Font("assets/fonts/ArchivoNarrow-Regular.ttf", 14)
+        font = pygame.font.Font("assets/fonts/DejaVuSans.ttf", 12)
         w, h = font.size(text)
         w += 4  # <-- Add horizontal margins around the tooltip..
         h += 4  # <-- .. and vertical.
