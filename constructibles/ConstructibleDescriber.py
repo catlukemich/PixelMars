@@ -6,13 +6,14 @@ from constructibles.Constructible import Constructible
 from flyers.Starship import Starship
 from utils.Vectors import Vec3
 
-class PlaceableDescriber:
+class ConstructibleDescriber:
     ''' The placeable describer is responsible for describing how a constructible can be placed on the terrain,
     what sprite to use when placed on the surface of Mars 
     It provides methods to check if a constructible can be placed on a given tile. '''
 
     def __init__(self, main):
-        self.main = main
+        from main.Game import Game
+        self.main : Game = main
 
     def getSpriteImage(self, tile):
         pass

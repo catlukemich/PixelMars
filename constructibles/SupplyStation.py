@@ -16,9 +16,10 @@ class SupplyStation(Constructible):
         )
         self.supply_time = 0
 
-    def onPlace(self, main):
+    def onPlace(self, main, tile):
+        super().onPlace(main, tile)
         self.main = main
-        supply_ship = SupplyShip.call(self)
+        supply_ship = SupplyShip.call(self, main)
         if self.main != None:
             self.main.view.addSprite(supply_ship)
 
@@ -26,8 +27,8 @@ class SupplyStation(Constructible):
         super().update(clock)
         self.supply_time += clock.get_time()
 
-        if self.supply_time > 10000:
+        if self.supply_time > 20000:
             self.supply_time = 0
-            supply_ship = SupplyShip.call(self)
+            supply_ship = SupplyShip.call(self, self.main)
             if self.main != None:
                 self.main.view.addSprite(supply_ship)

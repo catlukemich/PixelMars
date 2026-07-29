@@ -1,11 +1,13 @@
 import pygame
 
+from gui.Widget import Widget
+
 
 class GUI:
     def __init__(self, main):
         self.main = main
         self.main.input.addListener(self)
-        self.widgets = []
+        self.widgets: list[Widget] = []
         self.hover_widget = None
 
     def addWidget(self, widget):
@@ -13,6 +15,9 @@ class GUI:
 
     def removeWidget(self, widget):
         self.widgets.remove(widget)
+
+    def containsWidget(self, widget):
+        return widget in self.widgets
 
     def draw(self):
         for widget in self.widgets:
@@ -43,3 +48,8 @@ class GUI:
         elif event.type == pygame.MOUSEBUTTONDOWN:
             if self.hover_widget != None:
                 self.hover_widget.onClick(event)
+
+    def update(self, clock: pygame.time.Clock):
+        for widget in self.widgets:
+            widget.update(clock)
+        

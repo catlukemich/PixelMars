@@ -1,9 +1,9 @@
-from constructibles.PlaceableDescriber import PlaceableDescriber
+from constructibles.ConstructibleDescriber import ConstructibleDescriber
 from constructibles.SupplyStation import SupplyStation
 from utils.Assets import loadImage
 
 
-class SupplyStationDescriber(PlaceableDescriber):
+class SupplyStationDescriber(ConstructibleDescriber):
 
     def getSpriteImage(self, tile):
         return loadImage("assets/supply_station.png")

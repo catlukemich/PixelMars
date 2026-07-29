@@ -16,3 +16,6 @@ class Label(Widget):
         font = pygame.font.Font("assets/fonts/ArchivoNarrow-Regular.ttf", self.font_size)
         text_surface = font.render(self.text, True, (0,0,0))
         window.blit(text_surface, self.position)
+
+    def setText(self, text):
+        self.text = text

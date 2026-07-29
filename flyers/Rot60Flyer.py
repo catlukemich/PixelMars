@@ -33,7 +33,6 @@ class Rot60Flyer(Sprite, Updateable):
 
     def setRotation(self, rotation_degrees):
         rotation_degrees = rotation_degrees % 360
-        vd("rot degs", str(rotation_degrees))
         self.rotation = rotation_degrees
 
     def getRotation(self):

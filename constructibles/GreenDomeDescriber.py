@@ -1,9 +1,9 @@
 from constructibles.GreenDome import GreenDome
-from constructibles.PlaceableDescriber import PlaceableDescriber
+from constructibles.ConstructibleDescriber import ConstructibleDescriber
 from utils.Assets import loadImage
 
 
-class GreenDomeDescriber(PlaceableDescriber):
+class GreenDomeDescriber(ConstructibleDescriber):
 
     def getSpriteImage(self, tile):
         return loadImage("assets/green_dome.png")

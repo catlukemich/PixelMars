@@ -1,15 +1,16 @@
 from typing import Optional
 from VDebugger.vdebugger import vd
-from constructibles.PlaceableDescriber import PlaceableDescriber
+from constructibles.ConstructibleDescriber import ConstructibleDescriber
 from modes.ConnectorsRealigner import ConnectorsRealigner
 from modes.WorldInteractionMode import WorldInteractionMode
+from utils.Assets import loadSound
 
 
 class PlacementMode(WorldInteractionMode):
 
     def __init__(self, main):
         WorldInteractionMode.__init__(self, main)
-        self.describer: Optional[PlaceableDescriber] = None
+        self.describer: Optional[ConstructibleDescriber] = None
         self.tile_realigner = ConnectorsRealigner(main.terrain)
 
 
@@ -23,6 +24,8 @@ class PlacementMode(WorldInteractionMode):
         can_place = self.describer.canPlace(tile)
         if can_place:
             constructible = self.describer.placeNew(tile)
-            constructible.onPlace(self.main)
+            constructible.onPlace(self.main, tile)
             self.tile_realigner.realignConnectors(tile)
+
+            loadSound("assets/sounds/automatic_hammer.wav").play()
             

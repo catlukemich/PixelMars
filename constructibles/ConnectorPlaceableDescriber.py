@@ -1,10 +1,10 @@
 from constructibles.Connector import Connector
 from constructibles.Constructible import Constructible
-from constructibles.PlaceableDescriber import PlaceableDescriber
+from constructibles.ConstructibleDescriber import ConstructibleDescriber
 from utils.Assets import loadImage
 
 
-class ConnectorPlaceableDescriber(PlaceableDescriber):
+class ConnectorPlaceableDescriber(ConstructibleDescriber):
 
     def getSpriteImage(self, tile):
         terrain = self.main.terrain

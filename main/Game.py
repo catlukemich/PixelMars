@@ -2,6 +2,8 @@ import pygame
 
 from VDebugger.vdebugger import vd # <-- Visual debugger
 
+from gui.Advisor import Advisor
+from gui.AnimatedIcon import AnimatedIcon
 from gui.Tooltip import Tooltip
 from gui.GUI import GUI
 from main.GameLoop import GameLoop
@@ -16,7 +18,7 @@ from terrain.Terrain import Terrain
 
 # Game logical elements:
 from gui.Toolbar import Toolbar
-from utils.Assets import loadSound
+from utils.Assets import loadImage, loadSound
 from view.Scroller import Scroller
 from view.View import View
 
@@ -38,6 +40,8 @@ class Game():
             (800,800), pygame.RESIZABLE
         )
 
+        self.player = Player(self)
+
         self.input = Input()
         self.view = View()
         self.gui = GUI(self)
@@ -46,17 +50,15 @@ class Game():
         self.scroller = Scroller(self)
         self.modes = Modes(self)
 
+        self.advisor = Advisor(self)
         self.toolbar = Toolbar(self)
         self.toolbar.show()
-
-        self.tooltip = Tooltip.getInstance()
         
+        self.tooltip = Tooltip.getInstance()
+
         self.processes = []  # <-- List of GameState instances.
-
-        self.player = Player()
-
+        
         self.starship = Starship(self.terrain)
-
         landing_state = StarshipLandingProcess(self, self.starship)
 
         terrain = self.terrain
@@ -64,8 +66,8 @@ class Game():
         tile.addObject(self.starship)
         
         self.addProcess(landing_state)
-      
 
+  
 
     def loop(self):
         game_loop = GameLoop() # <-- The game loop that makes the game work and play, externall class for clarity.

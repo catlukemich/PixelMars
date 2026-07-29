@@ -23,21 +23,19 @@ LEAVING     = 7
 class SupplyShip(Rot60Flyer):
 
     @staticmethod
-    def call(supply_station):
+    def call(supply_station, main):
         # fmt: off
-        new_supply_ship = SupplyShip() # <-- Create a new supply ship that will come to supply station.
+        new_supply_ship = SupplyShip(main) # <-- Create a new supply ship that will come to supply station.
         station_location : Vec3 = supply_station.getLocation()    # <-- The location of the destination supply station.
         ship_location           = None                            # <-- Will be calculated later to animate ship comming from some place.
         random_rotation         = random.randint(0,359)           # <-- Needed in order to determine where the ship will come from.
         # fmt: on
 
-        vd("rot", str(random_rotation))
-
         new_supply_ship.setInitialRotation(random_rotation)
         new_supply_ship.setRotation(random_rotation) # <-- Rotate the ship.
 
         ## Find the offset for the ship location:
-        station_to_ship = Vec3(0, 6, 0) 
+        station_to_ship = Vec3(0, 30, 0) 
         station_to_ship.rotate(random_rotation)
         ship_location = station_location + station_to_ship + Vec3(0,0,4)  # <-- The start location of supply ship (4 units above the ground).
         new_supply_ship.setLocation(ship_location)
@@ -45,8 +43,10 @@ class SupplyShip(Rot60Flyer):
 
         return new_supply_ship
         
-    def __init__(self):
+    def __init__(self, main):
         super().__init__(loadImage("assets/supply_ship_atlas.png"))
+        from main.Game import Game
+        self.main: Game = main
         self.destination : Optional[Sprite] = None
         self.setLayer(Constants.L4_FLYERS_LAYER)
 
@@ -63,17 +63,16 @@ class SupplyShip(Rot60Flyer):
     def update(self, clock):
         if self.destination != None:
             landing_start_location = self.destination.getLocation() + Vec3(0,0,4)
-            landing_location = self.destination.getLocation() + Vec3(0,0,0.3)
+            landing_location = self.destination.getLocation() + Vec3(0,0,0.6)
             fly_away_location = self.destination.getLocation() + Vec3(0,0,6)
             dirvector = Vec3(0,0,0)
-            speed = 1
+            speed = 2
             epsilon = 0.1
 
             if self.state == APPROACHING:
                 dirvector = Vec3(0, -1, 0)
                 dirvector.rotate(self.rotation)
 
-                vd("dist", str(self.location.distance(landing_start_location)))
                 if self.location.distance(landing_start_location) < epsilon:
 
                     self.state = TURNING_IN
@@ -86,7 +85,7 @@ class SupplyShip(Rot60Flyer):
                     current_rotation += 6
                 else:
                     current_rotation = 90
-                vd("rot state", current_rotation)
+
                 self.setRotation(current_rotation)
                 if current_rotation == 90:
                     self.state = LANDING
@@ -102,6 +101,7 @@ class SupplyShip(Rot60Flyer):
                 if self.waiting_time > 3000:
                     self.waiting_time = 0
                     self.state = STARTING
+                    self.main.player.addFood(10)
 
             if self.state == STARTING:
                 dirvector = Vec3(0,0,1)
@@ -117,7 +117,6 @@ class SupplyShip(Rot60Flyer):
                     current_rotation += 6
                 else:
                     current_rotation = self.initial_rotation
-                vd("rot state", current_rotation)
                 self.setRotation(current_rotation)
                 if current_rotation == self.initial_rotation:
                     leaving_sound = loadSound("assets/sounds/supply_ship_leaving.wav")
@@ -129,7 +128,7 @@ class SupplyShip(Rot60Flyer):
                 dirvector.rotate(self.rotation)
                 speed = 25
                 if self.location.distance(fly_away_location) > 30:
-                    pass # TODO remove from scene
+                    self.main.view.removeSprite(self)
 
             ###### Actually moving the supply ship: ######
             self.location = self.location + dirvector * clock.get_time() / 1000 * speed

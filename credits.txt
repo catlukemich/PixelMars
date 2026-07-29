@@ -8,3 +8,6 @@ Graphics:
 
 "energy item and take effect" by knik1985 (CC BY 3.0 licensed) from https://opengameart.org/content/energy-item-and-take-effect
 "Occupational icons" by Technopeasant (CC BY 3.0 licensed) from https://opengameart.org/content/occupational-icons
+
+This game contains some art generetad by AI:
+- automatic hammer triggered at construction clicks

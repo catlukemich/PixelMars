@@ -38,7 +38,9 @@ class GameLoop:
                     old_height = new_height
 
             game.view.update(clock)
-            # game.window.fill((0, 0, 0))
+            game.advisor.update(clock)
+            game.gui.update(clock)
+
             game.window.fill((170, 66, 40))
             game.view.draw(game.window)
 

@@ -1,5 +1,7 @@
 from typing import Optional
 
+import pygame
+
 
 class Widget:
     def __init__(self):
@@ -47,5 +49,10 @@ class Widget:
             return False
         return self.click_listener.onClick(event, self)
 
+    def update(self, clock: pygame.time.Clock):
+        pass
+
     def draw(self, window):
         pass
+
+    

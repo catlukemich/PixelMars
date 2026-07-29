@@ -1,5 +1,7 @@
 from random import Random
+import random
 
+from terrain.CoalTile import CoalTile
 from terrain.Tile import Tile
 
 
@@ -11,13 +13,20 @@ class Terrain:
         self.width = 50
         self.height = 50
 
+        ###### Terrain generation: ######
         self.tiles = []
         for y in range(0, self.width):
             for x in range(0, self.height):
-                random = Random()
-                # image_path = "tiles/tile_" + str(random.randint(0,8))
-                image_path = "assets/tiles/tile_" + str(random.randint(1, 5)) + ".png"
-                tile = Tile(image_path, x, y)
+                prob_has_resource = random.randint(1,300)
+                if prob_has_resource == 300:
+                    tile = CoalTile("assets/tiles/coal_tile.png", x, y)
+                else:
+                    prob_other_than_flat = random.randint(1,5)
+                    if prob_other_than_flat == 1:
+                        image_path = "assets/tiles/tile_" + str(random.randint(1, 12)) + ".png"
+                        tile = Tile(image_path, x, y)
+                    else:
+                        tile = Tile("assets/tiles/tile_3.png",x, y)
                 self.tiles.append(tile)
                 self.main.view.addSprite(tile)
 
